@@ -1,0 +1,17 @@
+Package: php5-ioncube
+Version: 4.0.2-1
+Architecture: i386
+Maintainer: Sebastien Cramatte <scramatte@gmail.com>
+Installed-Size: 20
+Depends: php5-common
+Section: web
+Priority: optional
+Description: sourceguardian module for php5
+ This package provides a module for sourceguardian functions in PHP scripts.
+ .
+ PHP5 is an HTML-embedded scripting language. Much of its syntax is borrowed
+ from C, Java and Perl with a couple of unique PHP-specific features thrown
+ in. The goal of the language is to allow web developers to write dynamically
+ generated pages quickly.
+ .
+ Homepage: http://www.php.net/

@@ -1,0 +1,49 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# GNU copyright 1997 to 1999 by Joey Hess.
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+PHPIZE=/usr/bin/phpize
+PHPCONFIG=/usr/bin/php-config
+EXT_DIR=$(shell $(PHPCONFIG)$* --extension-dir)
+PHPVERSION=$(shell $(PHPCONFIG)$* --version | sed -e 's;\.[^\.]*$$;;')
+
+clean:  
+	dh_testdir
+	dh_testroot
+	dh_clean 
+
+build: 
+
+install: 
+	dh_testdir
+	dh_testroot
+	dh_clean -k 
+	dh_installdirs
+	mkdir -p debian/php5-ioncube/etc/php5/conf.d
+	mkdir -p debian/php5-ioncube${EXT_DIR}
+	echo "zend_extension=ioncube_loader_lin_${PHPVERSION}.so" > debian/php5-ioncube/etc/php5/conf.d/ioncube.ini; \
+	find ./${DEB_HOST_ARCH} -name 'ioncube_loader_lin_${PHPVERSION}*.so' -type f -exec install -D --mode=644 {} debian/php5-ioncube${EXT_DIR}/ \; 	
+# Build architecture-independent files here.
+binary-dep: build install
+
+# Build architecture-independent files here.
+binary-indep: build install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs
+	dh_installdocs
+	dh_install
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep
+.PHONY: build clean binary-indep binary install configure
+
